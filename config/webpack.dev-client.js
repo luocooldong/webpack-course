@@ -1,6 +1,5 @@
 const path = require("path")
 const webpack = require("webpack")
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   name: "client",
@@ -16,7 +15,6 @@ module.exports = {
   mode: "development",
   output: {
     filename: "[name]-bundle.js",
-    chunkFilename: "[name].js",
     path: path.resolve(__dirname, "../dist"),
     publicPath: "/"
   },
@@ -41,15 +39,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: {
-            loader: "css-loader",
-            options: {
-              minimize: true
-            }
-          }
-        })
+        use: [
+          {
+            loader: "style-loader"
+          },
+          { loader: "css-loader" }
+        ]
       },
       {
         test: /\.jpg$/,
@@ -58,6 +53,24 @@ module.exports = {
             loader: "file-loader",
             options: {
               name: "images/[name].[ext]"
+            }
+          }
+        ]
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]"
+            }
+          },
+          { loader: "extract-loader" },
+          {
+            loader: "html-loader",
+            options: {
+              attrs: ["img:src"]
             }
           }
         ]
@@ -73,7 +86,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("[name].css"),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("development"),
