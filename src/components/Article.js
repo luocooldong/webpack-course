@@ -1,8 +1,12 @@
 import React from "react"
 import "../css/Article.css"
 import NotFound from "./NotFound"
-import { connect } from "react-redux"
-import { fetchArticle } from "../actions"
+import {
+  connect
+} from "react-redux"
+import {
+  fetchArticle
+} from "../actions"
 
 class Article extends React.Component {
   constructor(props) {
@@ -11,9 +15,9 @@ class Article extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(
-      fetchArticle(this.props.site, this.props.match.params.slug)
-    )
+    this
+      .props
+      .dispatch(fetchArticle(this.props.site, this.props.match.params.slug))
   }
 
   render() {
@@ -22,19 +26,29 @@ class Article extends React.Component {
         backgroundImage: `url(${this.props.posterImage})`
       }
 
-      import(`../css/${this.props.site}/theme.css`)
-      return (
-        <div className="Article">
-          <div className="billboard" style={billboardStyle} />
-          <h1>{this.props.title}</h1>
-          <div
-            className="content"
-            dangerouslySetInnerHTML={{ __html: this.props.content.post }}
-          />
-        </div>
+      import (`../css/${this.props.site}/theme`)
+      return ( <
+        div className = "Article" >
+        <
+        div className = "billboard"
+        style = {
+          billboardStyle
+        }
+        /> <
+        h1 > {
+          this.props.title
+        } < /h1> <
+        div className = "content"
+        dangerouslySetInnerHTML = {
+          {
+            __html: this.props.content.post
+          }
+        }
+        /> <
+        /div>
       )
     } catch (error) {
-      return <NotFound />
+      return <NotFound / >
     }
   }
 }
