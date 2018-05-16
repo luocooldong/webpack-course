@@ -25,7 +25,7 @@ const done = () => {
   })
 }
 
-server.get("/api/articles/:post", (req, res) => {
+server.get("/api/articles/:slug", (req, res) => {
   res.json(req.params)
 })
 
