@@ -10,12 +10,5 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(thunk))
 
 export default initialState => {
-  const store = createStore(fetchArticle, enhancer)
-  if (module.hot) {
-    module.hot.accept("./reducers", () =>
-      store.replaceReducer(require("./reducers").fetchArticle)
-    )
-  }
-
-  return store
+  return createStore(fetchArticle, enhancer)
 }
